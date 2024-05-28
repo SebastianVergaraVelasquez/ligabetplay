@@ -8,8 +8,9 @@ import com.campussebastianvergara.models.Equipo;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Equipo> Equipos = new ArrayList<>();
-        String opcion;
+        String opcion, opcion2;
         opcion = "";
+        opcion2 = "";
         Scanner sc = new Scanner(System.in);
 
         //Menú
@@ -25,21 +26,42 @@ public class Main {
                     registrarFecha(Equipos);
                     break;
                 case "3":
-                    System.out.println("En proceso...");
+                //Menu de reportes
+                    System.out.println("***Modulo de reportes*\n\nEscoja una opción");
+                    System.out.println("1.Equipo con mas goles\n2.Equipo con mas puntos\n3.Equipo con mas partidos ganados");
+                    System.out.println("\n4.Total de goles en la liga\n5.Promedio de goles en la liga\n6.Tabla de posiciones\n7.Salir");
+                    opcion2 = sc.nextLine();
+                    switch (opcion2) {
+                        case "1":
+                            masGoles(Equipos);
+                            break;
+                        case "2":
+                            masPuntos(Equipos);
+                            break;
+                        case "3":
+                            masVictorias(Equipos);
+                            break;
+                        case "4":
+                            totalGoles(Equipos);
+                            break;
+                        case "5":
+                            promedioGoles(Equipos);
+                            break;
+                        case "6":
+                            System.out.println("En proceso...");
+                            break;
+                        default:
+                            System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
+                            break;
+                    }
                     break;
                 default:
                     System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
                     break;
             }
         } while (!opcion.equalsIgnoreCase("4"));
+        System.out.println("Saliendo...");
         
-        // registrarEquipo(Equipos);
-        // Equipos.forEach(Equipo -> {
-        //     System.out.println(String.format("El nombre del equipo es: %s \nPartidos jugados: %d", Equipo.getNombre(),
-        //             Equipo.getPartidosJugados()));
-        // });
-        // registrarFecha(Equipos);
-
     }
 
     public static void registrarEquipo(ArrayList<Equipo> Equipos) {
@@ -59,10 +81,12 @@ public class Main {
         String nombreLocal = sc.nextLine();
         System.out.println("Ingrese la cantidad de goles del local");
         int golesLocal = sc.nextInt();
+        sc.nextLine();
         System.out.println("Ingrese el nombre del equipo visitante");
         String nombreVisitante = sc.nextLine();
         System.out.println("Ingrese la cantidad de goles del visitante");
         int golesVisitante = sc.nextInt();
+
         if (golesLocal > golesVisitante){
             resultadoLocal = "victoria";
             resultadoVisitante = "derrota";
@@ -75,14 +99,14 @@ public class Main {
             resultadoLocal = "empate";
             resultadoVisitante = "empate";
         }
-        Equipo equipoLocal = recorrerListaEquipos(Equipos, nombreLocal);
+        Equipo equipoLocal = encontrarEquipo(Equipos, nombreLocal);
         actualizarInfo(equipoLocal, resultadoLocal, golesLocal, golesVisitante);
-        Equipo equipoVisitante = recorrerListaEquipos(Equipos, nombreLocal);
+        Equipo equipoVisitante = encontrarEquipo(Equipos, nombreVisitante);
         actualizarInfo(equipoVisitante, resultadoVisitante, golesVisitante, golesLocal);
 
     }
 
-    public static Equipo recorrerListaEquipos(ArrayList<Equipo> Equipos, String nombreEquipo) {
+    public static Equipo encontrarEquipo(ArrayList<Equipo> Equipos, String nombreEquipo) {
         // Esta función recorre la lista de equipos para verificar si existe el equipo
         // tras ingresar su nombre
         Equipo equipoEncontrado = null;
@@ -92,10 +116,9 @@ public class Main {
                 equipoEncontrado = equipo;
                 break;
             }
-            // Si no existe devuelve este mensaje
-            else {
-                System.out.println("Equipo no registrado");
-            }
+        }
+        if (equipoEncontrado.equals(null)){
+            System.out.println("Equipo no registrado");
         }
         return equipoEncontrado;
     }
@@ -135,4 +158,54 @@ public class Main {
         equipoEncontrado.setGolesContra(golesContra);
     }
 
+    public static void masGoles(ArrayList<Equipo> Equipos) {
+        Equipo equipoMasGoles = Equipos.get(0);
+        for (Equipo equipo : Equipos) {
+            if (equipo.getGolesFavor() > equipoMasGoles.getGolesFavor()){
+                equipoMasGoles = equipo;
+            }
+        }
+        System.out.println(String.format("El equipo con mas goles es: %s", equipoMasGoles.getNombre()));
+    }
+
+    public static void masPuntos(ArrayList<Equipo> Equipos) {
+        Equipo equipoMasPuntos = Equipos.get(0);
+        for (Equipo equipo : Equipos) {
+            if (equipo.getTotalPuntos() > equipoMasPuntos.getTotalPuntos()){
+                equipoMasPuntos = equipo;
+            }
+        }
+        System.out.println(String.format("El equipo con mas puntos es: %s", equipoMasPuntos.getNombre()));
+    }
+
+    public static void masVictorias(ArrayList<Equipo> Equipos) {
+        Equipo equipoMasVictorias = Equipos.get(0);
+        for (Equipo equipo : Equipos) {
+            if (equipo.getPartidosGanados() > equipoMasVictorias.getPartidosGanados()){
+                equipoMasVictorias = equipo;
+            }
+        }
+        System.out.println(String.format("El equipo con mas victorias es: %s", equipoMasVictorias.getNombre()));
+    }
+
+    public static void totalGoles(ArrayList<Equipo> Equipos) {
+        int golesTotales = 0;
+        for (Equipo equipo : Equipos) {
+            golesTotales += equipo.getGolesFavor();
+        }
+        System.out.println(String.format("El total de goles marcados es: %s", golesTotales));
+    }
+
+    public static void promedioGoles(ArrayList<Equipo> Equipos) {
+        int golesTotales = 0;
+        float promedioGoles = 0;
+        for (Equipo equipo : Equipos) {
+            golesTotales += equipo.getGolesFavor();
+        }
+        promedioGoles = golesTotales/Equipos.size();
+        System.out.println(String.format("El promedio de goles marcados es: %s", promedioGoles));
+    }
 }
+
+
+
