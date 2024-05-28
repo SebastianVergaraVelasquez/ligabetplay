@@ -48,7 +48,8 @@ public class Main {
                             promedioGoles(Equipos);
                             break;
                         case "6":
-                            System.out.println("En proceso...");
+                            int totalEquipos = Equipos.size();
+                            ordenamiento(Equipos, 0, totalEquipos-1);
                             break;
                         default:
                             System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
@@ -204,6 +205,29 @@ public class Main {
         }
         promedioGoles = golesTotales/Equipos.size();
         System.out.println(String.format("El promedio de goles marcados es: %s", promedioGoles));
+    }
+
+    public static void ordenamiento(ArrayList<Equipo> Equipos, int izquierda, int derecha) {
+        ArrayList<Equipo> EquiposPorPuntos = new ArrayList<>();
+        int pivote = Equipos.get(izquierda).getTotalPuntos();
+
+        int i = izquierda;
+        int j = derecha;
+        int aux;
+
+        while (i<j) {
+            while (equipoi.getTotalPuntos() <= pivote && i < j ) {
+                i++;
+            }
+            Equipo equipoj = Equipos.get(j);
+            while (equipoj.getTotalPuntos() > pivote) {
+                j--;
+            }
+            if(i<j){
+
+            }
+            
+        }
     }
 }
 
