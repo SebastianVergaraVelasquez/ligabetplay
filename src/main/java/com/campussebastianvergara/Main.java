@@ -24,6 +24,8 @@ public class Main {
                     break;
                 case "2":
                     registrarFecha(Equipos);
+                    int totalEquipos = Equipos.size();
+                    ordenamiento(Equipos, 0, totalEquipos-1);
                     break;
                 case "3":
                 //Menu de reportes
@@ -48,8 +50,7 @@ public class Main {
                             promedioGoles(Equipos);
                             break;
                         case "6":
-                            int totalEquipos = Equipos.size();
-                            ordenamiento(Equipos, 0, totalEquipos-1);
+                            imprimirTabla(Equipos);
                             break;
                         default:
                             System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
@@ -208,25 +209,55 @@ public class Main {
     }
 
     public static void ordenamiento(ArrayList<Equipo> Equipos, int izquierda, int derecha) {
-        ArrayList<Equipo> EquiposPorPuntos = new ArrayList<>();
-        int pivote = Equipos.get(izquierda).getTotalPuntos();
+    
+        Equipo pivote = new Equipo();
+        pivote = Equipos.get(izquierda);
 
         int i = izquierda;
         int j = derecha;
         int aux;
+        Equipo equipoi = new Equipo();
+        Equipo equipoj = new Equipo();
+        Equipo equipoaux = new Equipo();
 
         while (i<j) {
-            while (equipoi.getTotalPuntos() <= pivote && i < j ) {
+            while (Equipos.get(i).getTotalPuntos() <= pivote.getTotalPuntos() && i < j ) {
                 i++;
             }
-            Equipo equipoj = Equipos.get(j);
-            while (equipoj.getTotalPuntos() > pivote) {
+            while (Equipos.get(j).getTotalPuntos() > pivote.getTotalPuntos()) {
                 j--;
             }
             if(i<j){
-
+                
+                equipoi = Equipos.get(i);
+                equipoj = Equipos.get(j);
+               
+                equipoaux = equipoi;
+                Equipos.set(i, equipoj);
+                Equipos.set(j, equipoaux);
             }
-            
+        }
+
+        Equipos.set(izquierda, equipoj);
+        Equipos.set(j, pivote);
+
+        if(izquierda < j-1){
+            ordenamiento(Equipos, izquierda, j-1);
+        }
+        if (j+1 < derecha) {
+            ordenamiento(Equipos, j+1, derecha);
+        }
+    }
+
+    public static void imprimirTabla(ArrayList<Equipo> equipos) {
+        System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s%n", 
+                          "Nombre", "P. Jugados", "P. Ganados", "P. Perdidos", "P. Empatados", "Goles a Favor", "Goles en Contra", "Total Puntos");
+        System.out.println("------------------------------------------------------------------------------------------------------------");
+
+        for (Equipo equipo : equipos) {
+            System.out.printf("%-15s %-15d %-15d %-15d %-15d %-15d %-15d %-15d%n", 
+                              equipo.getNombre(), equipo.getPartidosJugados(), equipo.getPartidosGanados(), equipo.getPartidosPerdidos(), 
+                              equipo.getPartidosEmpatados(), equipo.getGolesFavor(), equipo.getGolesContra(), equipo.getTotalPuntos());
         }
     }
 }
