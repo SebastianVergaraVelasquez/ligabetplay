@@ -24,8 +24,7 @@ public class Main {
                     break;
                 case "2":
                     registrarFecha(Equipos);
-                    int totalEquipos = Equipos.size();
-                    ordenamiento(Equipos, 0, totalEquipos-1);
+                    ordenamiento(Equipos);
                     break;
                 case "3":
                 //Menu de reportes
@@ -67,11 +66,27 @@ public class Main {
     }
 
     public static void registrarEquipo(ArrayList<Equipo> Equipos) {
-        Equipo nuevoEquipo = new Equipo();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese el nombre del equipo");
-        nuevoEquipo.setNombre(sc.nextLine());
-        Equipos.add(nuevoEquipo);
+        String registrarNuevo = "";
+        do {
+            Equipo nuevoEquipo = new Equipo();
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Ingrese el nombre del equipo");
+            nuevoEquipo.setNombre(sc.nextLine());
+            Equipos.add(nuevoEquipo);
+            while (true) {
+                System.out.println("Desea registrar otro equipo. Ingrese 1 (Si), Ingrese 2(No)");
+                registrarNuevo = sc.nextLine();
+                if (registrarNuevo.equalsIgnoreCase("1")) {
+                    break;
+                }
+                else if (registrarNuevo.equalsIgnoreCase("2")) {
+                    break;
+                }
+                else {
+                    System.out.println("Opción no válida. Por favor, ingrese 1 (Si) o 2 (No)");
+                }
+            }
+        } while (registrarNuevo.equalsIgnoreCase("1") );  
     }
 
     public static void registrarFecha(ArrayList<Equipo> Equipos) {
@@ -208,44 +223,17 @@ public class Main {
         System.out.println(String.format("El promedio de goles marcados es: %s", promedioGoles));
     }
 
-    public static void ordenamiento(ArrayList<Equipo> Equipos, int izquierda, int derecha) {
-    
-        Equipo pivote = new Equipo();
-        pivote = Equipos.get(izquierda);
+    public static void ordenamiento(ArrayList<Equipo> Equipos) {
+        int n = Equipos.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (Equipos.get(j).getTotalPuntos() < Equipos.get(j + 1).getTotalPuntos()) {
 
-        int i = izquierda;
-        int j = derecha;
-        int aux;
-        Equipo equipoi = new Equipo();
-        Equipo equipoj = new Equipo();
-        Equipo equipoaux = new Equipo();
-
-        while (i<j) {
-            while (Equipos.get(i).getTotalPuntos() <= pivote.getTotalPuntos() && i < j ) {
-                i++;
+                    Equipo temp = Equipos.get(j);
+                    Equipos.set(j, Equipos.get(j + 1));
+                    Equipos.set(j + 1, temp);
+                }
             }
-            while (Equipos.get(j).getTotalPuntos() > pivote.getTotalPuntos()) {
-                j--;
-            }
-            if(i<j){
-                
-                equipoi = Equipos.get(i);
-                equipoj = Equipos.get(j);
-               
-                equipoaux = equipoi;
-                Equipos.set(i, equipoj);
-                Equipos.set(j, equipoaux);
-            }
-        }
-
-        Equipos.set(izquierda, equipoj);
-        Equipos.set(j, pivote);
-
-        if(izquierda < j-1){
-            ordenamiento(Equipos, izquierda, j-1);
-        }
-        if (j+1 < derecha) {
-            ordenamiento(Equipos, j+1, derecha);
         }
     }
 
