@@ -1,5 +1,7 @@
 package com.campussebastianvergara.models;
 
+import java.util.ArrayList;
+
 public class Equipo {
     String nombre;
     int partidosJugados;
@@ -9,6 +11,9 @@ public class Equipo {
     int golesFavor;
     int golesContra;
     int totalPuntos;
+    ArrayList<Jugador> jugadores;
+    ArrayList<PersonaTecnica> CuerpoTecnico;
+    ArrayList<PersonaMedica> cuerpoMedico;
     
     public Equipo() {
     
