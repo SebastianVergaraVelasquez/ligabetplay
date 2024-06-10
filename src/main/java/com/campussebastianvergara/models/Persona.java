@@ -38,6 +38,11 @@ public abstract class Persona {
         this.nombreEquipo = nombreEquipo;
     }
 
+    //Principio Open-Closed
+
+    //Las clases que heredan de esta clase extienden su funcionalidad, sin modificar la misma clase persona
+    //Extiende de Persona: Jugador, PersonaTecnica, PersonaMedica
+
     protected abstract void tomarDatos(String nombreEquipo);
 
     protected abstract void guardarEnLista(Equipo equipoEncontrado);

@@ -10,6 +10,7 @@ import com.campussebastianvergara.funciones.Reportes;
 import com.campussebastianvergara.funciones.ReportesJugadores;
 import com.campussebastianvergara.funciones.Tabla;
 import com.campussebastianvergara.funciones.JugadorFunciones;
+import com.campussebastianvergara.funciones.PerTecFunciones;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,10 +20,11 @@ public class Main {
         opcion2 = "";
         Scanner sc = new Scanner(System.in);
 
-        //Menú
+        // Menú
         do {
             System.out.println("***LigaBetplay***\n\nEscoja una opción");
-            System.out.println("1.Registrar equipo\n2.Registrar fecha\n3.Reporte de equipos\n4.Registrar jugador\n5.Reporte jugadores \n6..Salir");
+            System.out.println(
+                    "1.Registrar equipo\n2.Registrar fecha\n3.Reporte de equipos\n4.Registrar jugador\n5.Reporte jugadores\n6.Listar cuerpo técnico \n7.Salir");
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
@@ -33,9 +35,10 @@ public class Main {
                     Tabla.ordenamiento(Equipos);
                     break;
                 case "3":
-                //Menu de reportes
+                    // Menu de reportes
                     System.out.println("***Modulo de reportes*\n\nEscoja una opción");
-                    System.out.println("1.Equipo con mas goles\n2.Equipo con mas puntos\n3.Equipo con mas partidos ganados\n4.Total de goles en la liga\n5.Promedio de goles en la liga \n6.Tabla de posiciones\n7.Salir");
+                    System.out.println(
+                            "1.Equipo con mas goles\n2.Equipo con mas puntos\n3.Equipo con mas partidos ganados\n4.Total de goles en la liga\n5.Promedio de goles en la liga \n6.Tabla de posiciones\n7.Salir");
                     opcion2 = sc.nextLine();
                     switch (opcion2) {
                         case "1":
@@ -83,15 +86,15 @@ public class Main {
                             break;
                     }
                     break;
+                case "6":
+                    PerTecFunciones.listarCuerpoTecnico(Equipos);
+                    break;
                 default:
                     System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
                     break;
             }
-        } while (!opcion.equalsIgnoreCase("6"));
+        } while (!opcion.equalsIgnoreCase("7"));
         System.out.println("Saliendo...");
-        
+
     }
 }
-
-
-

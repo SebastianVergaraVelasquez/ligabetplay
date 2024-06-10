@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 public class Jugador extends Persona {
 
+    //Principio Open-Closed
+
+    //Extiende de Persona: Jugador, PersonaTecnica, PersonaMedica
+
     String dorsal;
     String nacionalidad;
     String fechaIngreso;
@@ -75,6 +79,12 @@ public class Jugador extends Persona {
         this.totalTarjetasAmarillas = totalTarjetasAmarillas;
     }
 
+    //Principio de sustitución de Liskov
+
+    //No se rompe el principio de sustitución debido a que las tres clases que extienden de Persona no tienen problema 
+    //con implementar cada uno de los métodos. Por ejemplo, No se presenta un método que sea aplicable para una sola clase
+    //hija mientras que en las otras dos no; en las tres clases hijas los métodos tomarDatos y guardarEnLista son aplicables.
+
     @Override
     public void tomarDatos(String nombreEquipo) {
         Scanner scanner = new Scanner(System.in);
@@ -96,22 +106,12 @@ public class Jugador extends Persona {
         System.out.println("Ingrese la fecha de ingreso del jugador (dd-mm-yyyy):");
         this.setFechaIngreso(scanner.nextLine());
 
-        // System.out.println("Ingrese la cantidad de goles anotados por el jugador:");
-        // this.setGolesAnotados(Integer.parseInt(scanner.nextLine()));
-
-        // System.out.println("Ingrese el total de tarjetas rojas del jugador:");
-        // this.setTotalTarjetasRojas(Integer.parseInt(scanner.nextLine()));
-
-        // System.out.println("Ingrese el total de tarjetas amarillas del jugador:");
-        // this.setTotalTarjetasAmarillas(Integer.parseInt(scanner.nextLine()));
     }
 
     @Override
     public void guardarEnLista(Equipo equipoEncontrado) {
-        ArrayList<Jugador> jugadoresActuales = new ArrayList<>();
-        jugadoresActuales = equipoEncontrado.getJugadores();
+        ArrayList<Jugador> jugadoresActuales = equipoEncontrado.getJugadores();
         jugadoresActuales.add(this);
         equipoEncontrado.setJugadores(jugadoresActuales);
     }
-
 }
