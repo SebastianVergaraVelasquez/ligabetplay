@@ -7,7 +7,9 @@ import com.campussebastianvergara.models.Equipo;
 import com.campussebastianvergara.funciones.FuncionesEquipo;
 import com.campussebastianvergara.funciones.Fecha;
 import com.campussebastianvergara.funciones.Reportes;
+import com.campussebastianvergara.funciones.ReportesJugadores;
 import com.campussebastianvergara.funciones.Tabla;
+import com.campussebastianvergara.funciones.JugadorFunciones;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class Main {
         //Menú
         do {
             System.out.println("***LigaBetplay***\n\nEscoja una opción");
-            System.out.println("1.Registrar equipo\n2.Registrar fecha\n3.Reportes\n4.Salir");
+            System.out.println("1.Registrar equipo\n2.Registrar fecha\n3.Reporte de equipos\n4.Registrar jugador\n5.Reporte jugadores \n6..Salir");
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
@@ -33,8 +35,7 @@ public class Main {
                 case "3":
                 //Menu de reportes
                     System.out.println("***Modulo de reportes*\n\nEscoja una opción");
-                    System.out.println("1.Equipo con mas goles\n2.Equipo con mas puntos\n3.Equipo con mas partidos ganados");
-                    System.out.println("\n4.Total de goles en la liga\n5.Promedio de goles en la liga\n6.Tabla de posiciones\n7.Salir");
+                    System.out.println("1.Equipo con mas goles\n2.Equipo con mas puntos\n3.Equipo con mas partidos ganados\n4.Total de goles en la liga\n5.Promedio de goles en la liga \n6.Tabla de posiciones\n7.Salir");
                     opcion2 = sc.nextLine();
                     switch (opcion2) {
                         case "1":
@@ -60,11 +61,33 @@ public class Main {
                             break;
                     }
                     break;
+                case "4":
+                    JugadorFunciones.registrarJugador(Equipos);
+                    break;
+                case "5":
+                    System.out.println("***Modulo de reportes de jugadores*\n\nEscoja una opción");
+                    System.out.println("1.Goleador\n2.Jugador con más amarillas \n3.Jugador con más rojas");
+                    opcion2 = sc.nextLine();
+                    switch (opcion2) {
+                        case "1":
+                            ReportesJugadores.jugadorConMasGoles(Equipos);
+                            break;
+                        case "2":
+                            ReportesJugadores.jugadorConMasAmarillas(Equipos);
+                            break;
+                        case "3":
+                            ReportesJugadores.jugadorConMasRojas(Equipos);
+                            break;
+                        default:
+                            System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
+                            break;
+                    }
+                    break;
                 default:
                     System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
                     break;
             }
-        } while (!opcion.equalsIgnoreCase("4"));
+        } while (!opcion.equalsIgnoreCase("6"));
         System.out.println("Saliendo...");
         
     }

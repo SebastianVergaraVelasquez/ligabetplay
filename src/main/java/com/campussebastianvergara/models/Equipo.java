@@ -12,11 +12,13 @@ public class Equipo {
     int golesContra;
     int totalPuntos;
     ArrayList<Jugador> jugadores;
-    ArrayList<PersonaTecnica> CuerpoTecnico;
+    ArrayList<PersonaTecnica> cuerpoTecnico;
     ArrayList<PersonaMedica> cuerpoMedico;
     
     public Equipo() {
-    
+        this.jugadores = new ArrayList<>();
+        this.cuerpoTecnico = new ArrayList<>();
+        this.cuerpoMedico = new ArrayList<>();
     }
     public Equipo(String nombre, int partidosJugados, int partidosGanados, int partidosPerdidos, int partidosEmpatados,
             int golesFavor, int golesContra, int totalPuntos) {
@@ -28,6 +30,9 @@ public class Equipo {
         this.golesFavor = golesFavor;
         this.golesContra = golesContra;
         this.totalPuntos = totalPuntos;
+        this.jugadores = new ArrayList<>();
+        this.cuerpoTecnico = new ArrayList<>();
+        this.cuerpoMedico = new ArrayList<>();
     }
     public String getNombre() {
         return nombre;
@@ -77,4 +82,24 @@ public class Equipo {
     public void setTotalPuntos(int totalPuntos) {
         this.totalPuntos = totalPuntos;
     }
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
+    public void setJugadores(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+    public ArrayList<PersonaTecnica> getCuerpoTecnico() {
+        return cuerpoTecnico;
+    }
+    public void setCuerpoTecnico(ArrayList<PersonaTecnica> cuerpoTecnico) {
+        this.cuerpoTecnico = cuerpoTecnico;
+    }
+    public ArrayList<PersonaMedica> getCuerpoMedico() {
+        return cuerpoMedico;
+    }
+    public void setCuerpoMedico(ArrayList<PersonaMedica> cuerpoMedico) {
+        this.cuerpoMedico = cuerpoMedico;
+    }
+
+   
 }

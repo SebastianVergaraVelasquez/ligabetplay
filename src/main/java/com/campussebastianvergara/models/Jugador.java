@@ -1,6 +1,7 @@
 package com.campussebastianvergara.models;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Jugador extends Persona {
 
@@ -12,6 +13,7 @@ public class Jugador extends Persona {
     int totalTarjetasAmarillas;
 
     public Jugador() {
+
     }
 
     public Jugador(String id, String nombre, String nombreEquipo, String dorsal, String nacionalidad,
@@ -74,10 +76,42 @@ public class Jugador extends Persona {
     }
 
     @Override
-    public void guardarEnLista() {   
+    public void tomarDatos(String nombreEquipo) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el documento del jugador:");
+        this.setNombre(scanner.nextLine());
+
+        System.out.println("Ingrese el nombre del jugador:");
+        this.setNombre(scanner.nextLine());
+
+        System.out.println("Ingrese la nacionalidad del jugador:");
+        this.setNacionalidad(scanner.nextLine());
+
+        this.setNombreEquipo(nombreEquipo);
+
+        System.out.println("Ingrese el dorsal del jugador:");
+        this.setDorsal(scanner.nextLine());
+
+        System.out.println("Ingrese la fecha de ingreso del jugador (dd-mm-yyyy):");
+        this.setFechaIngreso(scanner.nextLine());
+
+        // System.out.println("Ingrese la cantidad de goles anotados por el jugador:");
+        // this.setGolesAnotados(Integer.parseInt(scanner.nextLine()));
+
+        // System.out.println("Ingrese el total de tarjetas rojas del jugador:");
+        // this.setTotalTarjetasRojas(Integer.parseInt(scanner.nextLine()));
+
+        // System.out.println("Ingrese el total de tarjetas amarillas del jugador:");
+        // this.setTotalTarjetasAmarillas(Integer.parseInt(scanner.nextLine()));
     }
-    
-    public void guardarEnLista(ArrayList<Jugador> jugadores){
-        
+
+    @Override
+    public void guardarEnLista(Equipo equipoEncontrado) {
+        ArrayList<Jugador> jugadoresActuales = new ArrayList<>();
+        jugadoresActuales = equipoEncontrado.getJugadores();
+        jugadoresActuales.add(this);
+        equipoEncontrado.setJugadores(jugadoresActuales);
     }
+
 }

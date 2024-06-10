@@ -14,8 +14,12 @@ public class PersonaMedica extends Persona{
     }
 
     @Override
-    public void guardarEnLista() {
-        // TODO Auto-generated method stub
-        
+    public void tomarDatos(String nombreEquipo){
+        System.out.println("iwi");
+    }
+
+    @Override
+    public void guardarEnLista(Equipo equipoEncontrado){
+        System.out.println("owo");
     }
 }

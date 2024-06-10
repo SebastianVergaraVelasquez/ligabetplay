@@ -14,7 +14,31 @@ public abstract class Persona {
         this.nombreEquipo = nombreEquipo;
     }
 
-    public abstract void guardarEnLista();
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
+    }
+
+    protected abstract void tomarDatos(String nombreEquipo);
+
+    protected abstract void guardarEnLista(Equipo equipoEncontrado);
 }
-
-
