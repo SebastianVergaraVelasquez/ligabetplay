@@ -11,7 +11,7 @@ public class PerMedFunciones {
         Scanner scanner = new Scanner(System.in);
         Equipo equipoEncontrado = new Equipo();
         PersonaMedica nuevaPerMedica = new PersonaMedica();
-        System.out.println("Ingrese el nombre del equipo dónde va a jugar");
+        System.out.println("Ingrese el nombre del equipo del que va a ser parte");
         String nombreEquipo = scanner.nextLine();
         equipoEncontrado = FuncionesEquipo.encontrarEquipo(equipos, nombreEquipo);
         nuevaPerMedica.tomarDatos(nombreEquipo);

@@ -3,15 +3,13 @@ package com.campussebastianvergara.models;
 public abstract class Persona {
     protected String id;
     protected String nombre;
-    protected String nombreEquipo;
-
+   
     protected Persona() {
     }
 
-    protected Persona(String id, String nombre, String nombreEquipo) {
+    protected Persona(String id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.nombreEquipo = nombreEquipo;
     }
 
     public String getId() {
@@ -29,21 +27,4 @@ public abstract class Persona {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public String getNombreEquipo() {
-        return nombreEquipo;
-    }
-
-    public void setNombreEquipo(String nombreEquipo) {
-        this.nombreEquipo = nombreEquipo;
-    }
-
-    //Principio Open-Closed
-
-    //Las clases que heredan de esta clase extienden su funcionalidad, sin modificar la misma clase persona
-    //Extiende de Persona: Jugador, PersonaTecnica, PersonaMedica
-
-    protected abstract void tomarDatos(String nombreEquipo);
-
-    protected abstract void guardarEnLista(Equipo equipoEncontrado);
 }

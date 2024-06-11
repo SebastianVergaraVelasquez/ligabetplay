@@ -16,7 +16,7 @@ public class PersonaMedica extends Persona {
     }
 
     public PersonaMedica(String id, String nombre, String nombreEquipo, String rol) {
-        super(id, nombre, nombreEquipo);
+        super(id, nombre);
         this.rol = rol;
     }
 
@@ -34,7 +34,6 @@ public class PersonaMedica extends Persona {
     //con implementar cada uno de los métodos. Por ejemplo, No se presenta un método que sea aplicable para una sola clase
     //hija mientras que en las otras dos no; en las tres clases hijas los métodos tomarDatos y guardarEnLista son aplicables.
 
-    @Override
     public void tomarDatos(String nombreEquipo){
         Scanner scanner = new Scanner(System.in);
         System.out.println("***Registro Cuerpo Médico");
@@ -44,14 +43,11 @@ public class PersonaMedica extends Persona {
 
         System.out.println("Ingrese el documento de identidad");
         this.setId(scanner.nextLine());
-
-        this.setNombreEquipo(nombreEquipo);
-
+       
         System.out.println("Cual es su rol");
         this.setRol(scanner.nextLine());
     }
 
-    @Override
     public void guardarEnLista(Equipo equipoEncontrado) {
         ArrayList<PersonaMedica> personalMedico = equipoEncontrado.getCuerpoMedico();
         personalMedico.add(this);

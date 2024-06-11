@@ -1,10 +1,15 @@
 package com.campussebastianvergara.funciones;
 
 import com.campussebastianvergara.models.Equipo;
+import com.campussebastianvergara.Interfaces.Registrar;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FuncionesEquipo {
+public class FuncionesEquipo implements Registrar {
+
+    public void regristro(ArrayList<Equipo> Equipos){
+
+    }
 
     public static void registrarEquipo(ArrayList<Equipo> Equipos) {
         String registrarNuevo = "";

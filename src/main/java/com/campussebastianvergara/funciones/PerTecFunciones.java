@@ -11,7 +11,7 @@ public class PerTecFunciones {
         Scanner scanner = new Scanner(System.in);
         Equipo equipoEncontrado = new Equipo();
         PersonaTecnica nuevaPerTecnica = new PersonaTecnica();
-        System.out.println("Ingrese el nombre del equipo dónde va a jugar");
+        System.out.println("Ingrese el nombre del equipo del que va a ser parte");
         String nombreEquipo = scanner.nextLine();
         equipoEncontrado = FuncionesEquipo.encontrarEquipo(equipos, nombreEquipo);
         nuevaPerTecnica.tomarDatos(nombreEquipo);
@@ -22,7 +22,7 @@ public class PerTecFunciones {
     public static void listarCuerpoTecnico(ArrayList<Equipo> equipos){
         Scanner scanner = new Scanner(System.in);
         Equipo equipoEncontrado = new Equipo();
-        System.out.println("Ingrese el nombre del equipo dónde va a jugar");
+        System.out.println("Escriba el nombre del equipo para listar su cuerpo técnico");
         String nombreEquipo = scanner.nextLine();
         equipoEncontrado = FuncionesEquipo.encontrarEquipo(equipos, nombreEquipo);
         ArrayList<PersonaTecnica> cuerpoTecnico = equipoEncontrado.getCuerpoTecnico();

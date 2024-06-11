@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.campussebastianvergara.models.Equipo;
+import com.campussebastianvergara.models.Jugador;
 import com.campussebastianvergara.funciones.FuncionesEquipo;
 import com.campussebastianvergara.funciones.Fecha;
 import com.campussebastianvergara.funciones.Reportes;
 import com.campussebastianvergara.funciones.ReportesJugadores;
 import com.campussebastianvergara.funciones.Tabla;
-import com.campussebastianvergara.funciones.JugadorFunciones;
+import com.campussebastianvergara.funciones.JugadorServicio;
+import com.campussebastianvergara.funciones.PerMedFunciones;
 import com.campussebastianvergara.funciones.PerTecFunciones;
+import com.campussebastianvergara.Interfaces.ICrudServicio;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,12 +22,12 @@ public class Main {
         opcion = "";
         opcion2 = "";
         Scanner sc = new Scanner(System.in);
-
+        ICrudServicio jugadorServicio = new JugadorServicio();
         // Menú
         do {
             System.out.println("***LigaBetplay***\n\nEscoja una opción");
             System.out.println(
-                    "1.Registrar equipo\n2.Registrar fecha\n3.Reporte de equipos\n4.Registrar jugador\n5.Reporte jugadores\n6.Listar cuerpo técnico \n7.Salir");
+                    "1.Registrar equipo\n2.Registrar fecha\n3.Reporte de equipos\n4.Registrar jugador\n5.Reporte jugadores \n6.Registrar Cuerpo técnico\n7.Listar cuerpo técnico \n8.Registrar cuerpo médico \n9.Salir");
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
@@ -65,7 +68,28 @@ public class Main {
                     }
                     break;
                 case "4":
-                    JugadorFunciones.registrarJugador(Equipos);
+                    Jugador jugador = new Jugador();
+
+                    System.out.println("Equipo");
+                    jugador.setNombreEquipo(sc.nextLine());
+
+                    System.out.println("Nombre jugador");
+                    jugador.setNombre(sc.nextLine());
+
+                    System.out.println("id");
+                    jugador.setId(sc.nextLine());
+
+                    System.out.println("nacionalidad");
+                    jugador.setNacionalidad(sc.nextLine());
+
+                    System.out.println("dorsal");
+                    jugador.setDorsal(sc.nextLine());
+
+                    System.out.println("fecha ingreso");
+                    jugador.setFechaIngreso(sc.nextLine());
+
+                    jugadorServicio.registrar(jugador);
+
                     break;
                 case "5":
                     System.out.println("***Modulo de reportes de jugadores*\n\nEscoja una opción");
@@ -87,13 +111,19 @@ public class Main {
                     }
                     break;
                 case "6":
+                    PerTecFunciones.registrarJugador(Equipos);
+                    break;
+                case "7":
                     PerTecFunciones.listarCuerpoTecnico(Equipos);
+                    break;
+                case "8":
+                    PerMedFunciones.registrarJugador(Equipos);
                     break;
                 default:
                     System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
                     break;
             }
-        } while (!opcion.equalsIgnoreCase("7"));
+        } while (!opcion.equalsIgnoreCase("9"));
         System.out.println("Saliendo...");
 
     }
