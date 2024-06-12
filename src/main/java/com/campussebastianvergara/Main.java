@@ -1,23 +1,26 @@
 package com.campussebastianvergara;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.campussebastianvergara.models.Equipo;
 import com.campussebastianvergara.models.Fecha;
 import com.campussebastianvergara.models.Jugador;
+import com.campussebastianvergara.models.PersonaMedica;
+import com.campussebastianvergara.models.PersonaTecnica;
 import com.campussebastianvergara.Servicios.EquipoServicio;
 import com.campussebastianvergara.Servicios.Reportes;
 import com.campussebastianvergara.Servicios.Tabla;
-import com.campussebastianvergara.UI.Input;
 import com.campussebastianvergara.Servicios.JugadorServicio;
 import com.campussebastianvergara.Servicios.ReportesJugadores;
-// import com.campussebastianvergara.Servicios.PerMedFunciones;
-// import com.campussebastianvergara.Servicios.PerTecFunciones;
+import com.campussebastianvergara.Servicios.PerMedServicio;
+import com.campussebastianvergara.Servicios.PerTecServicio;
 import com.campussebastianvergara.Servicios.FechaServicio;
 import com.campussebastianvergara.Interfaces.IEquipoServicio;
 import com.campussebastianvergara.Interfaces.IFechaServicio;
 import com.campussebastianvergara.Interfaces.IJugadorServicio;
+import com.campussebastianvergara.Interfaces.IPerMedServicio;
+import com.campussebastianvergara.Interfaces.IPerTecServicio;
+import com.campussebastianvergara.UI.Input;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,7 +30,10 @@ public class Main {
         IJugadorServicio jugadorServicio = new JugadorServicio();
         IEquipoServicio equipoServicio = new EquipoServicio();
         IFechaServicio fechaServicio = new FechaServicio();
-        // Menúp
+        IPerMedServicio perMedServicio = new PerMedServicio();
+        IPerTecServicio perTecServicio = new PerTecServicio();
+
+        // Menú
         do {
             System.out.println("***LigaBetplay***\n\nEscoja una opción");
             System.out.println(
@@ -157,15 +163,39 @@ public class Main {
                             break;
                     }
                     break;
-                // case "6":
-                //     PerTecFunciones.registrarJugador(Equipos);
-                //     break;
-                // case "7":
-                //     PerTecFunciones.listarCuerpoTecnico(Equipos);
-                //     break;
-                // case "8":
-                //     PerMedFunciones.registrarJugador(Equipos);
-                //     break;
+                case "6":
+                    PersonaTecnica personaTecnica = new PersonaTecnica();
+                    System.out.println("Registro persona cuerpo técnico\n");
+                    System.out.println("Equipo del que forma parte");
+                    personaTecnica.setNombreEquipo(opcIncorrecta);
+                    System.out.println("Ingrese el id");
+                    personaTecnica.setId(sc.nextLine());
+                    System.out.println("Ingrese el nombre");
+                    personaTecnica.setNombre(sc.nextLine());
+                    System.out.println("Rol que va a desempeñar");
+                    personaTecnica.setRol(sc.nextLine());
+                    perTecServicio.registrar(personaTecnica);
+                    break;
+                case "7":
+                    System.out.println("Listado del cuerpo tecnico");
+
+                    System.out.println("Ingrese el nombre del equipo");
+                    Equipo equipoBuscado = equipoServicio.buscarPorId(sc.nextLine());
+                    perTecServicio.listarCuerpoTecnico(equipoBuscado.getCuerpoTecnico());
+                    break;
+                case "8":
+                    PersonaMedica personaMedica = new PersonaMedica();
+                    System.out.println("Registro persona cuerpo médico\n");
+                    System.out.println("Equipo del que forma parte");
+                    personaMedica.setNombreEquipo(opcIncorrecta);
+                    System.out.println("Ingrese el id");
+                    personaMedica.setId(sc.nextLine());
+                    System.out.println("Ingrese el nombre");
+                    personaMedica.setNombre(sc.nextLine());
+                    System.out.println("Rol que va a desempeñar");
+                    personaMedica.setRol(sc.nextLine());
+                    perMedServicio.registrar(personaMedica);
+                    break;
                 default:
                     System.out.println(opcIncorrecta);
                     break;

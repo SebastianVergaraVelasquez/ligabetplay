@@ -1,34 +1,42 @@
-// package com.campussebastianvergara.Servicios;
+package com.campussebastianvergara.Servicios;
 
-// import java.util.ArrayList;
-// import java.util.Scanner;
+import java.util.ArrayList;
 
-// import com.campussebastianvergara.models.Equipo;
-// import com.campussebastianvergara.models.PersonaTecnica;
+import com.campussebastianvergara.DataBase;
+import com.campussebastianvergara.Interfaces.IPerTecServicio;
+import com.campussebastianvergara.models.Equipo;
+import com.campussebastianvergara.models.PersonaTecnica;
 
-// public class PerTecFunciones {
-//      public static void registrarJugador(ArrayList<Equipo> equipos) {
-//         Scanner scanner = new Scanner(System.in);
-//         Equipo equipoEncontrado = new Equipo();
-//         PersonaTecnica nuevaPerTecnica = new PersonaTecnica();
-//         System.out.println("Ingrese el nombre del equipo del que va a ser parte");
-//         String nombreEquipo = scanner.nextLine();
-//         equipoEncontrado = EquipoServicio.encontrarEquipo(equipos, nombreEquipo);
-//         nuevaPerTecnica.tomarDatos(nombreEquipo);
-//         nuevaPerTecnica.guardarEnLista(equipoEncontrado);
-//         System.out.println(equipos.get(0).getJugadores().get(0).getNombre());
-//     }
+public class PerTecServicio implements IPerTecServicio{
 
-//     public static void listarCuerpoTecnico(ArrayList<Equipo> equipos){
-//         Scanner scanner = new Scanner(System.in);
-//         Equipo equipoEncontrado = new Equipo();
-//         System.out.println("Escriba el nombre del equipo para listar su cuerpo técnico");
-//         String nombreEquipo = scanner.nextLine();
-//         equipoEncontrado = EquipoServicio.encontrarEquipo(equipos, nombreEquipo);
-//         ArrayList<PersonaTecnica> cuerpoTecnico = equipoEncontrado.getCuerpoTecnico();
-//         System.out.println(String.format("Cuerpo técnico del equipo %s:", nombreEquipo));
-//         for (PersonaTecnica personaTecnica : cuerpoTecnico) {
-//             System.out.println(String.format("%s : %s", personaTecnica.getNombre(), personaTecnica.getRol()));
-//         } 
-//     }
-// }
+    public boolean registrar(PersonaTecnica personaTecnica) {
+        boolean saved = false;
+        for (Equipo equipo : DataBase.equipos) {
+            if (equipo.getNombre().equals(personaTecnica.getNombreEquipo())) {
+                int i = DataBase.equipos.indexOf(equipo);
+                DataBase.equipos.get(i).setCuerpoTecnico(personaTecnica);
+                saved = true;
+            }
+        }
+        return saved;
+    }
+
+    public PersonaTecnica buscarPorId(String id) {
+        for (Equipo equipo : DataBase.equipos) {
+            for (PersonaTecnica personaTecnica : equipo.getCuerpoTecnico()) {
+                if (personaTecnica.getId().equals(id)) {
+                    return personaTecnica;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void listarCuerpoTecnico (ArrayList<PersonaTecnica> cuerpoTecnico){
+            for (PersonaTecnica personaTecnica : cuerpoTecnico) {
+                System.out.println(personaTecnica.getNombre()+ ", "+personaTecnica.getRol());
+            }
+        }
+}
+     
+
