@@ -1,8 +1,5 @@
 package com.campussebastianvergara.models;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class PersonaTecnica extends Persona {
 
     //Principio Open-Closed
@@ -10,6 +7,7 @@ public class PersonaTecnica extends Persona {
     //Extiende de Persona: Jugador, PersonaTecnica, PersonaMedica
 
     String rol;
+    String nombreEquipo;
 
     public PersonaTecnica() {
     }
@@ -27,31 +25,18 @@ public class PersonaTecnica extends Persona {
         this.rol = rol;
     }
 
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
+    }
+
      //Principio de sustitución de Liskov
 
     //No se rompe el principio de sustitución debido a que las tres clases que extienden de Persona no tienen problema 
     //con implementar cada uno de los métodos. Por ejemplo, No se presenta un método que sea aplicable para una sola clase
     //hija mientras que en las otras dos no; en las tres clases hijas los métodos tomarDatos y guardarEnLista son aplicables.
 
- 
-    public void tomarDatos(String nombreEquipo){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("***Registro Cuerpo Técnico");
-
-        System.out.println("Ingrese el nombre de la persona");
-        this.setNombre(scanner.nextLine());
-
-        System.out.println("Ingrese el documento de identidad");
-        this.setId(scanner.nextLine());
-
-        System.out.println("Cual es su rol");
-        this.setRol(scanner.nextLine());
-    }
-
-
-    public void guardarEnLista(Equipo equipoEncontrado) {
-        ArrayList<PersonaTecnica> personalMedico = equipoEncontrado.getCuerpoTecnico();
-        personalMedico.add(this);
-        equipoEncontrado.setCuerpoTecnico(personalMedico);
-    }
 }

@@ -1,8 +1,5 @@
 package com.campussebastianvergara.models;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class PersonaMedica extends Persona {
 
     //Principio Open-Closed
