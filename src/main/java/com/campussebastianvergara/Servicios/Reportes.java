@@ -1,13 +1,14 @@
-package com.campussebastianvergara.funciones;
+package com.campussebastianvergara.Servicios;
 
+import com.campussebastianvergara.DataBase;
 import com.campussebastianvergara.models.Equipo;
-import java.util.ArrayList;
 
 public class Reportes {
-    
-    public static void masGoles(ArrayList<Equipo> Equipos) {
-        Equipo equipoMasGoles = Equipos.get(0);
-        for (Equipo equipo : Equipos) {
+
+    public static void masGoles() {
+
+        Equipo equipoMasGoles = DataBase.equipos.get(0);
+        for (Equipo equipo : DataBase.equipos) {
             if (equipo.getGolesFavor() > equipoMasGoles.getGolesFavor()){
                 equipoMasGoles = equipo;
             }
@@ -15,9 +16,9 @@ public class Reportes {
         System.out.println(String.format("El equipo con mas goles es: %s", equipoMasGoles.getNombre()));
     }
 
-    public static void masPuntos(ArrayList<Equipo> Equipos) {
-        Equipo equipoMasPuntos = Equipos.get(0);
-        for (Equipo equipo : Equipos) {
+    public static void masPuntos() {
+        Equipo equipoMasPuntos = DataBase.equipos.get(0);
+        for (Equipo equipo : DataBase.equipos) {
             if (equipo.getTotalPuntos() > equipoMasPuntos.getTotalPuntos()){
                 equipoMasPuntos = equipo;
             }
@@ -25,9 +26,9 @@ public class Reportes {
         System.out.println(String.format("El equipo con mas puntos es: %s", equipoMasPuntos.getNombre()));
     }
 
-    public static void masVictorias(ArrayList<Equipo> Equipos) {
-        Equipo equipoMasVictorias = Equipos.get(0);
-        for (Equipo equipo : Equipos) {
+    public static void masVictorias() {
+        Equipo equipoMasVictorias = DataBase.equipos.get(0);
+        for (Equipo equipo : DataBase.equipos) {
             if (equipo.getPartidosGanados() > equipoMasVictorias.getPartidosGanados()){
                 equipoMasVictorias = equipo;
             }
@@ -35,21 +36,21 @@ public class Reportes {
         System.out.println(String.format("El equipo con mas victorias es: %s", equipoMasVictorias.getNombre()));
     }
 
-    public static void totalGoles(ArrayList<Equipo> Equipos) {
+    public static void totalGoles() {
         int golesTotales = 0;
-        for (Equipo equipo : Equipos) {
+        for (Equipo equipo : DataBase.equipos) {
             golesTotales += equipo.getGolesFavor();
         }
         System.out.println(String.format("El total de goles marcados es: %s", golesTotales));
     }
 
-    public static void promedioGoles(ArrayList<Equipo> Equipos) {
-        int golesTotales = 0;
-        float promedioGoles = 0;
-        for (Equipo equipo : Equipos) {
+    public static void promedioGoles() {
+        double golesTotales = 0;
+        double promedioGoles = 0;
+        for (Equipo equipo : DataBase.equipos) {
             golesTotales += equipo.getGolesFavor();
         }
-        promedioGoles = golesTotales/Equipos.size();
+        promedioGoles = golesTotales/DataBase.equipos.size();
         System.out.println(String.format("El promedio de goles marcados es: %s", promedioGoles));
     }
 }

@@ -4,26 +4,30 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.campussebastianvergara.models.Equipo;
+import com.campussebastianvergara.models.Fecha;
 import com.campussebastianvergara.models.Jugador;
-import com.campussebastianvergara.funciones.FuncionesEquipo;
-import com.campussebastianvergara.funciones.Fecha;
-import com.campussebastianvergara.funciones.Reportes;
-import com.campussebastianvergara.funciones.ReportesJugadores;
-import com.campussebastianvergara.funciones.Tabla;
-import com.campussebastianvergara.funciones.JugadorServicio;
-import com.campussebastianvergara.funciones.PerMedFunciones;
-import com.campussebastianvergara.funciones.PerTecFunciones;
-import com.campussebastianvergara.Interfaces.ICrudServicio;
+import com.campussebastianvergara.Servicios.EquipoServicio;
+import com.campussebastianvergara.Servicios.Reportes;
+import com.campussebastianvergara.Servicios.Tabla;
+import com.campussebastianvergara.UI.Input;
+import com.campussebastianvergara.Servicios.JugadorServicio;
+import com.campussebastianvergara.Servicios.ReportesJugadores;
+// import com.campussebastianvergara.Servicios.PerMedFunciones;
+// import com.campussebastianvergara.Servicios.PerTecFunciones;
+import com.campussebastianvergara.Servicios.FechaServicio;
+import com.campussebastianvergara.Interfaces.IEquipoServicio;
+import com.campussebastianvergara.Interfaces.IFechaServicio;
+import com.campussebastianvergara.Interfaces.IJugadorServicio;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Equipo> Equipos = new ArrayList<>();
-        String opcion, opcion2;
-        opcion = "";
-        opcion2 = "";
+        String opcion = "";
+        String opcIncorrecta = "Opción incorrecta. Ingrese un valor de los mostrados en el menú";
         Scanner sc = new Scanner(System.in);
-        ICrudServicio jugadorServicio = new JugadorServicio();
-        // Menú
+        IJugadorServicio jugadorServicio = new JugadorServicio();
+        IEquipoServicio equipoServicio = new EquipoServicio();
+        IFechaServicio fechaServicio = new FechaServicio();
+        // Menúp
         do {
             System.out.println("***LigaBetplay***\n\nEscoja una opción");
             System.out.println(
@@ -31,39 +35,82 @@ public class Main {
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
-                    FuncionesEquipo.registrarEquipo(Equipos);
+                    Equipo equipo = new Equipo();
+                    System.out.println("Ingrese el nombre del nuevo equipo");
+                    equipo.setNombre(sc.nextLine());
+                    equipoServicio.registrar(equipo);
                     break;
                 case "2":
-                    Fecha.registrarFecha(Equipos);
-                    Tabla.ordenamiento(Equipos);
+                    boolean registrarAmonestado = true;
+                    Fecha fecha = new Fecha();
+                    System.out.println("Ingrese el nombre del equipo local");
+                    fecha.setEquipoLocal(sc.nextLine());
+                    System.out.println("Cuántos goles hizo el equipo local");
+                    fecha.setGolesLocal(sc.nextInt());
+                    System.out.println("Ingrese el nombre del equipo local");
+                    fecha.setEquipoVisitante(sc.nextLine());
+                    System.out.println("Cuántos goles hizo el equipo local");
+                    fecha.setGolesVisitante(sc.nextInt());
+
+                    fechaServicio.registrar(fecha);
+                    Equipo local = equipoServicio.buscarPorId(fecha.getEquipoLocal());
+                    Equipo visitante = equipoServicio.buscarPorId(fecha.getEquipoVisitante());
+                    String[] resultados = fechaServicio.determinarGanador(fecha);
+                    equipoServicio.actualizarInfo(local, resultados[0], fecha.getGolesLocal(), fecha.getGolesVisitante());
+                    equipoServicio.actualizarInfo(visitante, resultados[1], fecha.getGolesVisitante(), fecha.getGolesLocal());
+
+                    if(fecha.getGolesLocal()> 0){
+                        System.out.println("***Goles del local***");
+                        Input.inputGoles(fecha.getGolesLocal());
+                    }
+                    if(fecha.getGolesVisitante()> 0){
+                        System.out.println("***Goles del visitante***");
+                        Input.inputGoles(fecha.getGolesVisitante());
+                    }    
+
+                    System.out.println("Hubo amonestados? Escriba si o no");
+                    opcion = sc.nextLine();
+                    if (opcion.equalsIgnoreCase("si")){
+                        do {
+                            Input.inputAmonestado();
+                            System.out.println("Desea registrar otro jugador amonestado? 1.Si 2.No");
+                            opcion = sc.nextLine();
+                            if (opcion.equalsIgnoreCase("2")) {
+                                registrarAmonestado = false;
+                            }
+                            
+                        } while (registrarAmonestado);
+                    }
+
+                    Tabla.ordenamiento();
                     break;
                 case "3":
                     // Menu de reportes
                     System.out.println("***Modulo de reportes*\n\nEscoja una opción");
                     System.out.println(
                             "1.Equipo con mas goles\n2.Equipo con mas puntos\n3.Equipo con mas partidos ganados\n4.Total de goles en la liga\n5.Promedio de goles en la liga \n6.Tabla de posiciones\n7.Salir");
-                    opcion2 = sc.nextLine();
-                    switch (opcion2) {
+                    opcion = sc.nextLine();
+                    switch (opcion) {
                         case "1":
-                            Reportes.masGoles(Equipos);
+                            Reportes.masGoles();
                             break;
                         case "2":
-                            Reportes.masPuntos(Equipos);
+                            Reportes.masPuntos();
                             break;
                         case "3":
-                            Reportes.masVictorias(Equipos);
+                            Reportes.masVictorias();
                             break;
                         case "4":
-                            Reportes.totalGoles(Equipos);
+                            Reportes.totalGoles();
                             break;
                         case "5":
-                            Reportes.promedioGoles(Equipos);
+                            Reportes.promedioGoles();
                             break;
                         case "6":
-                            Tabla.imprimirTabla(Equipos);
+                            Tabla.imprimirTabla();
                             break;
                         default:
-                            System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
+                            System.out.println(opcIncorrecta);
                             break;
                     }
                     break;
@@ -94,37 +141,36 @@ public class Main {
                 case "5":
                     System.out.println("***Modulo de reportes de jugadores*\n\nEscoja una opción");
                     System.out.println("1.Goleador\n2.Jugador con más amarillas \n3.Jugador con más rojas");
-                    opcion2 = sc.nextLine();
-                    switch (opcion2) {
+                    opcion = sc.nextLine();
+                    switch (opcion) {
                         case "1":
-                            ReportesJugadores.jugadorConMasGoles(Equipos);
+                            ReportesJugadores.jugadorConMasGoles();
                             break;
                         case "2":
-                            ReportesJugadores.jugadorConMasAmarillas(Equipos);
+                            ReportesJugadores.jugadorConMasAmarillas();
                             break;
                         case "3":
-                            ReportesJugadores.jugadorConMasRojas(Equipos);
+                            ReportesJugadores.jugadorConMasRojas();
                             break;
                         default:
-                            System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
+                            System.out.println(opcIncorrecta);
                             break;
                     }
                     break;
-                case "6":
-                    PerTecFunciones.registrarJugador(Equipos);
-                    break;
-                case "7":
-                    PerTecFunciones.listarCuerpoTecnico(Equipos);
-                    break;
-                case "8":
-                    PerMedFunciones.registrarJugador(Equipos);
-                    break;
+                // case "6":
+                //     PerTecFunciones.registrarJugador(Equipos);
+                //     break;
+                // case "7":
+                //     PerTecFunciones.listarCuerpoTecnico(Equipos);
+                //     break;
+                // case "8":
+                //     PerMedFunciones.registrarJugador(Equipos);
+                //     break;
                 default:
-                    System.out.println("Opción incorrecta. Ingrese un valor de los mostrados en el menú");
+                    System.out.println(opcIncorrecta);
                     break;
             }
         } while (!opcion.equalsIgnoreCase("9"));
         System.out.println("Saliendo...");
-
     }
 }

@@ -117,15 +117,15 @@ public class Equipo {
         return cuerpoTecnico;
     }
 
-    public void setCuerpoTecnico(ArrayList<PersonaTecnica> cuerpoTecnico) {
-        this.cuerpoTecnico = cuerpoTecnico;
+    public void setCuerpoTecnico(PersonaTecnica personaTecnica) {
+        this.cuerpoTecnico.add(personaTecnica);
     }
 
     public ArrayList<PersonaMedica> getCuerpoMedico() {
         return cuerpoMedico;
     }
 
-    public void setCuerpoMedico(ArrayList<PersonaMedica> cuerpoMedico) {
-        this.cuerpoMedico = cuerpoMedico;
+    public void setCuerpoMedico(PersonaMedica personaMedica){
+        this.cuerpoMedico.add(personaMedica);
     }
 }
