@@ -16,13 +16,13 @@ import java.util.List;
 
 public class FechaServicio implements ICrudServicio<Fecha>, IFechaServicio{
 
-    private static final String FILE_PATH = "ligaBetplay.json";
+    private static final String FILE_PATH = "fechas.json";
     private List<Fecha> fechas;
     private Gson gson;
 
     public FechaServicio(){
         gson = new GsonBuilder().setPrettyPrinting().create();
-        fechas = new ArrayList<>(loadFechas());
+        fechas = loadFechas();
     }
 
     private List<Fecha> loadFechas(){

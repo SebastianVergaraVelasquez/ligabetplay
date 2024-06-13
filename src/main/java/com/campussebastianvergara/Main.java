@@ -64,6 +64,8 @@ public class Main {
                     fechaServicio.registrar(fecha);
                     Equipo local = equipoServicio.buscarPorId(fecha.getEquipoLocal());
                     Equipo visitante = equipoServicio.buscarPorId(fecha.getEquipoVisitante());
+                    System.out.println(local.getNombre());
+                    System.out.println(visitante.getNombre());
                     String[] resultados = fechaServicio.determinarGanador(fecha);
                     equipoServicio.actualizarInfo(local, resultados[0], fecha.getGolesLocal(), fecha.getGolesVisitante());
                     equipoServicio.actualizarInfo(visitante, resultados[1], fecha.getGolesVisitante(), fecha.getGolesLocal());

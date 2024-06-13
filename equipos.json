@@ -1,0 +1,28 @@
+[
+  {
+    "nombre": "ab",
+    "partidosJugados": 1,
+    "partidosGanados": 1,
+    "partidosPerdidos": 0,
+    "partidosEmpatados": 0,
+    "golesFavor": 2,
+    "golesContra": 1,
+    "totalPuntos": 1,
+    "jugadores": [],
+    "cuerpoTecnico": [],
+    "cuerpoMedico": []
+  },
+  {
+    "nombre": "chandafe",
+    "partidosJugados": 1,
+    "partidosGanados": 0,
+    "partidosPerdidos": 1,
+    "partidosEmpatados": 0,
+    "golesFavor": 1,
+    "golesContra": 2,
+    "totalPuntos": 0,
+    "jugadores": [],
+    "cuerpoTecnico": [],
+    "cuerpoMedico": []
+  }
+]

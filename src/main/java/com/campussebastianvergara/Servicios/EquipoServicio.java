@@ -15,22 +15,18 @@ import java.util.List;
 
 public class EquipoServicio implements IEquipoServicio{
 
-    private static final String FILE_PATH = "ligaBetplay.json";
-    private ArrayList<ArrayList<Equipo>> liga;
+    private static final String FILE_PATH = "equipos.json";
+    private List<Equipo> equipos;
     private Gson gson;
 
     public EquipoServicio(){
         gson = new GsonBuilder().setPrettyPrinting().create();
-        liga = loadEquipos();
-
-        if (liga.isEmpty()) {
-            ArrayList<Equipo> equipos = new ArrayList<>();
-        }
+        equipos = loadEquipos();
     }
 
-    private ArrayList<ArrayList<Equipo>> loadEquipos(){
+    private List<Equipo> loadEquipos(){
         try(Reader reader = new FileReader(FILE_PATH)){
-            Type listType = new TypeToken <ArrayList<ArrayList<Equipo>>>() {}.getType();
+            Type listType = new TypeToken <ArrayList<Equipo>>() {}.getType();
             return gson.fromJson(reader, listType);
         } catch (FileNotFoundException e) {
             return new ArrayList<>(); //Devuelve una lista vacia si el archivo no existe  
@@ -42,21 +38,20 @@ public class EquipoServicio implements IEquipoServicio{
 
     private void saveEquipos(){
         try (Writer writer = new FileWriter(FILE_PATH)){
-            gson.toJson(liga,writer);
+            gson.toJson(equipos,writer);
         } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     public boolean registrar(Equipo equipo) {
-        ArrayList<Equipo> equipos = liga.get(0);
         equipos.add(equipo);
         saveEquipos();
         return true;
     }
 
     public Equipo buscarPorId(String nombre) {
-        for (Equipo equipo : DataBase.equipos) {
+        for (Equipo equipo : equipos) {
             if(equipo.getNombre().equals(nombre)){
                 return equipo;
             }
@@ -82,5 +77,6 @@ public class EquipoServicio implements IEquipoServicio{
 
         equipo.setGolesFavor(equipo.getGolesFavor()+golesFavor);
         equipo.setGolesContra(equipo.getGolesContra()+golesContra);
+        saveEquipos();
     }
 }
