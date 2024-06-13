@@ -11,6 +11,7 @@ import com.campussebastianvergara.Servicios.EquipoServicio;
 import com.campussebastianvergara.Servicios.Reportes;
 import com.campussebastianvergara.Servicios.Tabla;
 import com.campussebastianvergara.Servicios.JugadorServicio;
+import com.campussebastianvergara.Servicios.LigaServicio;
 import com.campussebastianvergara.Servicios.ReportesJugadores;
 import com.campussebastianvergara.Servicios.PerMedServicio;
 import com.campussebastianvergara.Servicios.PerTecServicio;
@@ -32,7 +33,8 @@ public class Main {
         IFechaServicio fechaServicio = new FechaServicio();
         IPerMedServicio perMedServicio = new PerMedServicio();
         IPerTecServicio perTecServicio = new PerTecServicio();
-
+        // LigaServicio ligaServicio = new LigaServicio();
+        // ligaServicio.registrar();
         // Menú
         do {
             System.out.println("***LigaBetplay***\n\nEscoja una opción");
@@ -53,9 +55,10 @@ public class Main {
                     fecha.setEquipoLocal(sc.nextLine());
                     System.out.println("Cuántos goles hizo el equipo local");
                     fecha.setGolesLocal(sc.nextInt());
-                    System.out.println("Ingrese el nombre del equipo local");
+                    sc.nextLine();
+                    System.out.println("Ingrese el nombre del equipo visitante");
                     fecha.setEquipoVisitante(sc.nextLine());
-                    System.out.println("Cuántos goles hizo el equipo local");
+                    System.out.println("Cuántos goles hizo el equipo visitante");
                     fecha.setGolesVisitante(sc.nextInt());
 
                     fechaServicio.registrar(fecha);
@@ -195,6 +198,8 @@ public class Main {
                     System.out.println("Rol que va a desempeñar");
                     personaMedica.setRol(sc.nextLine());
                     perMedServicio.registrar(personaMedica);
+                    break;
+                case "9":
                     break;
                 default:
                     System.out.println(opcIncorrecta);

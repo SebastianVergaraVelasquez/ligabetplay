@@ -1,16 +1,60 @@
 package com.campussebastianvergara.Servicios;
 
 import com.campussebastianvergara.models.Equipo;
-
 import com.campussebastianvergara.DataBase;
 import com.campussebastianvergara.Interfaces.IEquipoServicio;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 public class EquipoServicio implements IEquipoServicio{
 
+    private static final String FILE_PATH = "ligaBetplay.json";
+    private ArrayList<ArrayList<Equipo>> liga;
+    private Gson gson;
+
+    public EquipoServicio(){
+        gson = new GsonBuilder().setPrettyPrinting().create();
+        liga = loadEquipos();
+
+        if (liga.isEmpty()) {
+            ArrayList<Equipo> equipos = new ArrayList<>();
+        }
+    }
+
+    private ArrayList<ArrayList<Equipo>> loadEquipos(){
+        try(Reader reader = new FileReader(FILE_PATH)){
+            Type listType = new TypeToken <ArrayList<ArrayList<Equipo>>>() {}.getType();
+            return gson.fromJson(reader, listType);
+        } catch (FileNotFoundException e) {
+            return new ArrayList<>(); //Devuelve una lista vacia si el archivo no existe  
+        } catch (IOException e){
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    private void saveEquipos(){
+        try (Writer writer = new FileWriter(FILE_PATH)){
+            gson.toJson(liga,writer);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public boolean registrar(Equipo equipo) {
-        DataBase.equipos.add(equipo);
+        ArrayList<Equipo> equipos = liga.get(0);
+        equipos.add(equipo);
+        saveEquipos();
         return true;
     }
+
     public Equipo buscarPorId(String nombre) {
         for (Equipo equipo : DataBase.equipos) {
             if(equipo.getNombre().equals(nombre)){
@@ -40,29 +84,3 @@ public class EquipoServicio implements IEquipoServicio{
         equipo.setGolesContra(equipo.getGolesContra()+golesContra);
     }
 }
-
-
-
-// public static void registrarEquipo(ArrayList<Equipo> Equipos) {
-    //     String registrarNuevo = "";
-    //     do {
-    //         Equipo nuevoEquipo = new Equipo();
-    //         Scanner sc = new Scanner(System.in);
-    //         System.out.println("Ingrese el nombre del equipo");
-    //         nuevoEquipo.setNombre(sc.nextLine());
-    //         Equipos.add(nuevoEquipo);
-    //         while (true) {
-    //             System.out.println("Desea registrar otro equipo. Ingrese 1 (Si), Ingrese 2(No)");
-    //             registrarNuevo = sc.nextLine();
-    //             if (registrarNuevo.equalsIgnoreCase("1")) {
-    //                 break;
-    //             }
-    //             else if (registrarNuevo.equalsIgnoreCase("2")) {
-    //                 break;
-    //             }
-    //             else {
-    //                 System.out.println("Opción no válida. Por favor, ingrese 1 (Si) o 2 (No)");
-    //             }
-    //         }
-    //     } while (registrarNuevo.equalsIgnoreCase("1") );  
-    // }

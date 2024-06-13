@@ -18,6 +18,8 @@ public class Equipo {
     public Equipo(String nombre) {
         this.nombre = nombre;
         this.jugadores = new ArrayList<>();
+        this.cuerpoTecnico = new ArrayList<>();
+        this.cuerpoMedico = new ArrayList<>();
     }
 
     public Equipo() {
