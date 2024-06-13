@@ -4,7 +4,6 @@ import com.campussebastianvergara.DataBase;
 import com.campussebastianvergara.Interfaces.ICrudServicio;
 import com.campussebastianvergara.Interfaces.IFechaServicio;
 import com.campussebastianvergara.models.Fecha;
-import com.campussebastianvergara.models.Liga;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

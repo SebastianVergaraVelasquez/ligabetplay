@@ -7,8 +7,20 @@
     "partidosEmpatados": 0,
     "golesFavor": 2,
     "golesContra": 1,
-    "totalPuntos": 1,
-    "jugadores": [],
+    "totalPuntos": 3,
+    "jugadores": [
+      {
+        "nombreEquipo": "ab",
+        "dorsal": "12",
+        "nacionalidad": "peru",
+        "fechaIngreso": "as",
+        "golesAnotados": 2,
+        "totalTarjetasRojas": 0,
+        "totalTarjetasAmarillas": 1,
+        "id": "123",
+        "nombre": "mau"
+      }
+    ],
     "cuerpoTecnico": [],
     "cuerpoMedico": []
   },
@@ -21,7 +33,19 @@
     "golesFavor": 1,
     "golesContra": 2,
     "totalPuntos": 0,
-    "jugadores": [],
+    "jugadores": [
+      {
+        "nombreEquipo": "chandafe",
+        "dorsal": "12",
+        "nacionalidad": "malta",
+        "fechaIngreso": "asdad",
+        "golesAnotados": 1,
+        "totalTarjetasRojas": 1,
+        "totalTarjetasAmarillas": 0,
+        "id": "333",
+        "nombre": "luis"
+      }
+    ],
     "cuerpoTecnico": [],
     "cuerpoMedico": []
   }

@@ -1,7 +1,6 @@
 package com.campussebastianvergara.Servicios;
 
 import com.campussebastianvergara.models.Equipo;
-import com.campussebastianvergara.DataBase;
 import com.campussebastianvergara.Interfaces.IEquipoServicio;
 
 import com.google.gson.Gson;
@@ -67,7 +66,7 @@ public class EquipoServicio implements IEquipoServicio{
       
         if (resultado.equalsIgnoreCase("victoria")) {
             equipo.setPartidosGanados(equipo.getPartidosGanados()+1);
-            equipo.setTotalPuntos(equipo.getTotalPuntos()+1);
+            equipo.setTotalPuntos(equipo.getTotalPuntos()+3);
         } else if (resultado.equalsIgnoreCase("derrota")) {
             equipo.setPartidosPerdidos(equipo.getPartidosPerdidos()+1);
         } else {

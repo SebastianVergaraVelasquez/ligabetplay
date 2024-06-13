@@ -28,6 +28,7 @@ public class Input {
         System.out.println(String.format("Ingrese el nombre del jugador amonestado"));
         Jugador jugador = jugadorServicio.buscarPorId(sc.nextLine());
         System.out.println("Cuál fue la amonestación? 1.Amarilla 2.Roja");
+        carton = sc.nextLine();
         if (carton.equalsIgnoreCase("1")) {
             jugadorServicio.sumarTarjetaAmarilla(jugador);
         }

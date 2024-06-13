@@ -2,25 +2,9 @@ package com.campussebastianvergara;
 
 import java.util.Scanner;
 
-import com.campussebastianvergara.models.Equipo;
-import com.campussebastianvergara.models.Fecha;
-import com.campussebastianvergara.models.Jugador;
-import com.campussebastianvergara.models.PersonaMedica;
-import com.campussebastianvergara.models.PersonaTecnica;
-import com.campussebastianvergara.Servicios.EquipoServicio;
-import com.campussebastianvergara.Servicios.Reportes;
-import com.campussebastianvergara.Servicios.Tabla;
-import com.campussebastianvergara.Servicios.JugadorServicio;
-import com.campussebastianvergara.Servicios.LigaServicio;
-import com.campussebastianvergara.Servicios.ReportesJugadores;
-import com.campussebastianvergara.Servicios.PerMedServicio;
-import com.campussebastianvergara.Servicios.PerTecServicio;
-import com.campussebastianvergara.Servicios.FechaServicio;
-import com.campussebastianvergara.Interfaces.IEquipoServicio;
-import com.campussebastianvergara.Interfaces.IFechaServicio;
-import com.campussebastianvergara.Interfaces.IJugadorServicio;
-import com.campussebastianvergara.Interfaces.IPerMedServicio;
-import com.campussebastianvergara.Interfaces.IPerTecServicio;
+import com.campussebastianvergara.models.*;
+import com.campussebastianvergara.Servicios.*;
+import com.campussebastianvergara.Interfaces.*;
 import com.campussebastianvergara.UI.Input;
 
 public class Main {
@@ -33,8 +17,7 @@ public class Main {
         IFechaServicio fechaServicio = new FechaServicio();
         IPerMedServicio perMedServicio = new PerMedServicio();
         IPerTecServicio perTecServicio = new PerTecServicio();
-        // LigaServicio ligaServicio = new LigaServicio();
-        // ligaServicio.registrar();
+
         // Menú
         do {
             System.out.println("***LigaBetplay***\n\nEscoja una opción");
@@ -64,8 +47,6 @@ public class Main {
                     fechaServicio.registrar(fecha);
                     Equipo local = equipoServicio.buscarPorId(fecha.getEquipoLocal());
                     Equipo visitante = equipoServicio.buscarPorId(fecha.getEquipoVisitante());
-                    System.out.println(local.getNombre());
-                    System.out.println(visitante.getNombre());
                     String[] resultados = fechaServicio.determinarGanador(fecha);
                     equipoServicio.actualizarInfo(local, resultados[0], fecha.getGolesLocal(), fecha.getGolesVisitante());
                     equipoServicio.actualizarInfo(visitante, resultados[1], fecha.getGolesVisitante(), fecha.getGolesLocal());
@@ -80,6 +61,7 @@ public class Main {
                     }    
 
                     System.out.println("Hubo amonestados? Escriba si o no");
+                    sc.nextLine();
                     opcion = sc.nextLine();
                     if (opcion.equalsIgnoreCase("si")){
                         do {
